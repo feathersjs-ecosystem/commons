@@ -217,4 +217,121 @@ describe('Argument normalization tests', () => {
       assert.equal(e.message, `Too many arguments for 'findInCollection' service method`);
     }
   });
+
+  it('addToCollection', () => {
+    let collection = 'users';
+    let normal = [1, collection, params, callback];
+    let args = getArguments('addToCollection', normal);
+
+    assert.deepEqual(args, normal);
+
+    args = getArguments('addToCollection', [2, collection, callback]);
+    assert.deepEqual(args, [2, collection, {}, callback]);
+
+    args = getArguments('addToCollection', [3, collection, params]);
+    assert.deepEqual(args, [3, collection, params, _.noop]);
+
+    args = getArguments('addToCollection', [4, collection]);
+    assert.deepEqual(args, [4, collection, {}, _.noop]);
+
+    try {
+      getArguments('addToCollection', [callback]);
+    } catch(e) {
+      assert.equal(e.message, `First parameter for 'addToCollection' can not be a function`);
+    }
+
+    try {
+      getArguments('addToCollection', [5]);
+    } catch(e) {
+      assert.equal(e.message, `The collection for 'addToCollection' should be a string`);
+    }
+
+    try {
+      getArguments('addToCollection', normal.concat(['too many']));
+    } catch(e) {
+      assert.equal(e.message, `Too many arguments for 'addToCollection' service method`);
+    }
+  });
+
+  it('getInCollection', () => {
+    let collection = 'users';
+    let normal = [1, collection, 1, params, callback];
+    let args = getArguments('getInCollection', normal);
+
+    assert.deepEqual(args, normal);
+
+    args = getArguments('getInCollection', [2, collection, 2, callback]);
+    assert.deepEqual(args, [2, collection, 2, {}, callback]);
+
+    args = getArguments('getInCollection', [3, collection, 3, params]);
+    assert.deepEqual(args, [3, collection, 3, params, _.noop]);
+
+    args = getArguments('getInCollection', [4, collection, 4]);
+    assert.deepEqual(args, [4, collection, 4, {}, _.noop]);
+
+    try {
+      getArguments('getInCollection', [callback]);
+    } catch(e) {
+      assert.equal(e.message, `First parameter for 'getInCollection' can not be a function`);
+    }
+
+    try {
+      getArguments('getInCollection', [5]);
+    } catch(e) {
+      assert.equal(e.message, `The collection for 'getInCollection' should be a string`);
+    }
+
+    try {
+      getArguments('getInCollection', [6, 'users', callback]);
+    } catch(e) {
+      assert.equal(e.message, `Third parameter for 'getInCollection' can not be a function`);
+    }
+
+    try {
+      getArguments('getInCollection', normal.concat(['too many']));
+    } catch(e) {
+      assert.equal(e.message, `Too many arguments for 'getInCollection' service method`);
+    }
+  });
+
+  it('removeFromCollection', () => {
+    let collection = 'users';
+    let normal = [1, collection, 1, params, callback];
+    let args = getArguments('removeFromCollection', normal);
+
+    assert.deepEqual(args, normal);
+
+    args = getArguments('removeFromCollection', [2, collection, 2, callback]);
+    assert.deepEqual(args, [2, collection, 2, {}, callback]);
+
+    args = getArguments('removeFromCollection', [3, collection, 3, params]);
+    assert.deepEqual(args, [3, collection, 3, params, _.noop]);
+
+    args = getArguments('removeFromCollection', [4, collection, 4]);
+    assert.deepEqual(args, [4, collection, 4, {}, _.noop]);
+
+    try {
+      getArguments('removeFromCollection', [callback]);
+    } catch(e) {
+      assert.equal(e.message, `First parameter for 'removeFromCollection' can not be a function`);
+    }
+
+    try {
+      getArguments('removeFromCollection', [5]);
+    } catch(e) {
+      assert.equal(e.message, `The collection for 'removeFromCollection' should be a string`);
+    }
+
+    try {
+      getArguments('removeFromCollection', [6, 'users', callback]);
+    } catch(e) {
+      assert.equal(e.message, `Third parameter for 'removeFromCollection' can not be a function`);
+    }
+
+    try {
+      getArguments('removeFromCollection', normal.concat(['too many']));
+    } catch(e) {
+      assert.equal(e.message, `Too many arguments for 'removeFromCollection' service method`);
+    }
+  });
 });
