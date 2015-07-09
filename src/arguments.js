@@ -71,27 +71,51 @@ const getOrRemove = name => {
   };
 };
 
-const addToOrFindInCollection = name => {
-  return function (args) {
-    let id = args[0];
-    let collection = args[1];
-    let callback = getCallback(args);
-    let params = getParams(args, 2);
+const findInCollection = args => {
+  let id = args[0];
+  let collection = args[1];
+  let callback = getCallback(args);
+  let params = getParams(args, 2);
 
-    if (typeof id === 'function') {
-      throw new Error(`First parameter for '${name}' can not be a function`);
-    }
+  if (typeof id === 'function') {
+    throw new Error(`First parameter for 'findInCollection' can not be a function`);
+  }
 
-    if (typeof collection !== 'string') {
-      throw new Error(`The collection for '${name}' should be a string`);
-    }
+  if (typeof collection !== 'string') {
+    throw new Error(`The collection for 'findInCollection' should be a string`);
+  }
 
-    if (args.length > 4) {
-      throw new Error(`Too many arguments for '${name}' service method`);
-    }
+  if (args.length > 4) {
+    throw new Error(`Too many arguments for 'findInCollection' service method`);
+  }
 
-    return [ id, collection, params, callback ];
-  };
+  return [ id, collection, params, callback ];
+};
+
+const addToCollection = args => {
+  let id = args[0];
+  let collection = args[1];
+  let callback = getCallback(args);
+  let data = getParams(args, 2);
+  let params = getParams(args, 3);
+
+  if (typeof id === 'function') {
+    throw new Error(`First parameter for 'addToCollection' can not be a function`);
+  }
+
+  if (typeof collection !== 'string') {
+    throw new Error(`The collection for 'addToCollection' should be a string`);
+  }
+
+  if(typeof data !== 'object') {
+    throw new Error(`No data provided for 'addToCollection'`);
+  }
+
+  if (args.length > 5) {
+    throw new Error(`Too many arguments for 'addToCollection' service method`);
+  }
+
+  return [ id, collection, data, params, callback ];
 };
 
 const removeFromOrGetInCollection = name => {
@@ -136,9 +160,9 @@ export const converters = {
 
   remove: getOrRemove('remove'),
 
-  findInCollection: addToOrFindInCollection('findInCollection'),
+  findInCollection: findInCollection,
 
-  addToCollection: addToOrFindInCollection('addToCollection'),
+  addToCollection: addToCollection,
 
   getInCollection: removeFromOrGetInCollection('getInCollection'),
 
