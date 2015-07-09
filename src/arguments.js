@@ -95,8 +95,8 @@ const findInCollection = args => {
 const addToCollection = args => {
   let id = args[0];
   let collection = args[1];
+  let data = args[2];
   let callback = getCallback(args);
-  let data = getParams(args, 2);
   let params = getParams(args, 3);
 
   if (typeof id === 'function') {
@@ -122,8 +122,8 @@ const removeFromOrGetInCollection = name => {
   return function (args) {
     let id = args[0];
     let collection = args[1];
+    let documentId = args[2];
     let callback = getCallback(args);
-    let documentId = getParams(args, 2);
     let params = getParams(args, 3);
 
     if (typeof id === 'function') {
