@@ -71,25 +71,26 @@ const getOrRemove = name => {
   };
 };
 
-const findInCollection = args => {
-  let id = args[0];
-  let collection = args[1];
-  let callback = getCallback(args);
-  let params = getParams(args, 2);
+const addToOrFindInCollection = name => {
+  return function (args) {
+    let id = args[0];
+    let collection = args[1];
+    let callback = getCallback(args);
+    let params = getParams(args, 2);
 
-  if(typeof id === 'function') {
-    throw new Error(`First parameter for 'findInCollection' can not be a function`);
-  }
+    if (typeof id === 'function') {
+      throw new Error(`First parameter for '${name}' can not be a function`);
+    }
 
-  if(typeof collection !== 'string') {
-    throw new Error(`The collection for 'findInCollection' should be a string`);
-  }
+    if (typeof collection !== 'string') {
+      throw new Error(`The collection for '${name}' should be a string`);
+    }
 
-  if(args.length > 4) {
-    throw new Error(`Too many arguments for 'findInCollection' service method`);
-  }
+    if (args.length > 4) {
+      throw new Error(`Too many arguments for '${name}' service method`);
+    }
 
-  return [ id, collection, params, callback ];
+    return [ id, collection, params, callback ];
 };
 
 export const converters = {
@@ -105,7 +106,7 @@ export const converters = {
 
   remove: getOrRemove('remove'),
 
-  findInCollection: findInCollection
+  findInCollection: addToOrFindInCollection('findInCollection'),
 };
 
 export default function getArguments(method, args) {
