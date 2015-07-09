@@ -24,7 +24,7 @@ describe('Argument normalization tests', () => {
     try {
       getArguments('find', normal.concat(['too many']));
     } catch(e) {
-      assert.equal(e.message, 'Too many arguments for \'find\' service method');
+      assert.equal(e.message, `Too many arguments for 'find' service method`);
     }
   });
 
@@ -46,13 +46,13 @@ describe('Argument normalization tests', () => {
     try {
       getArguments('get', [callback]);
     } catch(e) {
-      assert.equal(e.message, 'First parameter for \'get\' can not be a function');
+      assert.equal(e.message, `First parameter for 'get' can not be a function`);
     }
 
     try {
       getArguments('get', normal.concat(['too many']));
     } catch(e) {
-      assert.equal(e.message, 'Too many arguments for \'get\' service method');
+      assert.equal(e.message, `Too many arguments for 'get' service method`);
     }
   });
 
@@ -74,13 +74,13 @@ describe('Argument normalization tests', () => {
     try {
       args = getArguments('remove', [callback]);
     } catch(e) {
-      assert.equal(e.message, 'First parameter for \'remove\' can not be a function');
+      assert.equal(e.message, `First parameter for 'remove' can not be a function`);
     }
 
     try {
       getArguments('remove', normal.concat(['too many']));
     } catch(e) {
-      assert.equal(e.message, 'Too many arguments for \'remove\' service method');
+      assert.equal(e.message, `Too many arguments for 'remove' service method`);
     }
   });
 
@@ -103,13 +103,13 @@ describe('Argument normalization tests', () => {
     try {
       getArguments('create', [callback]);
     } catch(e) {
-      assert.equal(e.message, 'First parameter for \'create\' must be an object');
+      assert.equal(e.message, `First parameter for 'create' must be an object`);
     }
 
     try {
       getArguments('create', normal.concat(['too many']));
     } catch(e) {
-      assert.equal(e.message, 'Too many arguments for \'create\' service method');
+      assert.equal(e.message, `Too many arguments for 'create' service method`);
     }
   });
 
@@ -132,19 +132,19 @@ describe('Argument normalization tests', () => {
     try {
       getArguments('update', [callback]);
     } catch(e) {
-      assert.equal(e.message, 'First parameter for \'update\' can not be a function');
+      assert.equal(e.message, `First parameter for 'update' can not be a function`);
     }
 
     try {
       getArguments('update', [5]);
     } catch(e) {
-      assert.equal(e.message, 'No data provided for \'update\'');
+      assert.equal(e.message, `No data provided for 'update'`);
     }
 
     try {
       getArguments('update', normal.concat(['too many']));
     } catch(e) {
-      assert.equal(e.message, 'Too many arguments for \'update\' service method');
+      assert.equal(e.message, `Too many arguments for 'update' service method`);
     }
   });
 
@@ -167,19 +167,19 @@ describe('Argument normalization tests', () => {
     try {
       getArguments('patch', [callback]);
     } catch(e) {
-      assert.equal(e.message, 'First parameter for \'patch\' can not be a function');
+      assert.equal(e.message, `First parameter for 'patch' can not be a function`);
     }
 
     try {
       getArguments('patch', [5]);
     } catch(e) {
-      assert.equal(e.message, 'No data provided for \'patch\'');
+      assert.equal(e.message, `No data provided for 'patch'`);
     }
 
     try {
       getArguments('patch', normal.concat(['too many']));
     } catch(e) {
-      assert.equal(e.message, 'Too many arguments for \'patch\' service method');
+      assert.equal(e.message, `Too many arguments for 'patch' service method`);
     }
   });
 });
