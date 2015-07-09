@@ -184,8 +184,6 @@ describe('Argument normalization tests', () => {
   });
 
   it('findInCollection', () => {
-    // id, collection, params, callback
-    //let data = { test: 'Data' };
     let collection = 'users';
     let normal = [1, collection, params, callback];
     let args = getArguments('findInCollection', normal);
@@ -206,8 +204,6 @@ describe('Argument normalization tests', () => {
     } catch(e) {
       assert.equal(e.message, `First parameter for 'findInCollection' can not be a function`);
     }
-
-    console.log('THEEERRRRRREEEEEEEE');
 
     try {
       getArguments('findInCollection', [5]);
