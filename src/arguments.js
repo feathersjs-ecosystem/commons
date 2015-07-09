@@ -119,7 +119,6 @@ const addToCollection = args => {
 };
 
 const removeFromOrGetInCollection = name => {
-  // id, collection, itemId, params, callback)
   return function (args) {
     let id = args[0];
     let collection = args[1];
