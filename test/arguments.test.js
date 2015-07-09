@@ -182,4 +182,43 @@ describe('Argument normalization tests', () => {
       assert.equal(e.message, `Too many arguments for 'patch' service method`);
     }
   });
+
+  it('findInCollection', () => {
+    // id, collection, params, callback
+    //let data = { test: 'Data' };
+    let collection = 'users';
+    let normal = [1, collection, params, callback];
+    let args = getArguments('findInCollection', normal);
+
+    assert.deepEqual(args, normal);
+
+    args = getArguments('findInCollection', [2, collection, callback]);
+    assert.deepEqual(args, [2, collection, {}, callback]);
+
+    args = getArguments('findInCollection', [3, collection, params]);
+    assert.deepEqual(args, [3, collection, params, _.noop]);
+
+    args = getArguments('findInCollection', [4, collection]);
+    assert.deepEqual(args, [4, collection, {}, _.noop]);
+
+    try {
+      getArguments('findInCollection', [callback]);
+    } catch(e) {
+      assert.equal(e.message, `First parameter for 'findInCollection' can not be a function`);
+    }
+
+    console.log('THEEERRRRRREEEEEEEE');
+
+    try {
+      getArguments('findInCollection', [5]);
+    } catch(e) {
+      assert.equal(e.message, `The collection for 'findInCollection' should be a string`);
+    }
+
+    try {
+      getArguments('findInCollection', normal.concat(['too many']));
+    } catch(e) {
+      assert.equal(e.message, `Too many arguments for 'findInCollection' service method`);
+    }
+  });
 });
