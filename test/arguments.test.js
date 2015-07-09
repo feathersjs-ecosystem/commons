@@ -220,19 +220,20 @@ describe('Argument normalization tests', () => {
 
   it('addToCollection', () => {
     let collection = 'users';
-    let normal = [1, collection, params, callback];
+    let data = { test: 'Data' };
+    let normal = [1, collection, data, params, callback];
     let args = getArguments('addToCollection', normal);
 
     assert.deepEqual(args, normal);
 
-    args = getArguments('addToCollection', [2, collection, callback]);
-    assert.deepEqual(args, [2, collection, {}, callback]);
+    args = getArguments('addToCollection', [2, collection, data, callback]);
+    assert.deepEqual(args, [2, collection, data, {}, callback]);
 
-    args = getArguments('addToCollection', [3, collection, params]);
-    assert.deepEqual(args, [3, collection, params, _.noop]);
+    args = getArguments('addToCollection', [3, collection, data, params]);
+    assert.deepEqual(args, [3, collection, data, params, _.noop]);
 
-    args = getArguments('addToCollection', [4, collection]);
-    assert.deepEqual(args, [4, collection, {}, _.noop]);
+    args = getArguments('addToCollection', [4, collection, data]);
+    assert.deepEqual(args, [4, collection, data, {}, _.noop]);
 
     try {
       getArguments('addToCollection', [callback]);
@@ -244,6 +245,12 @@ describe('Argument normalization tests', () => {
       getArguments('addToCollection', [5]);
     } catch(e) {
       assert.equal(e.message, `The collection for 'addToCollection' should be a string`);
+    }
+
+    try {
+      getArguments('addToCollection', [6, collection]);
+    } catch(e) {
+      assert.equal(e.message, `No data provided for 'addToCollection'`);
     }
 
     try {
