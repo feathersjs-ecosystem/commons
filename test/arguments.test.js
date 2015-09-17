@@ -24,7 +24,7 @@ describe('Argument normalization tests', () => {
     try {
       getArguments('find', normal.concat(['too many']));
     } catch(e) {
-      assert.equal(e.message, 'Too many arguments for \'find\' service method');
+      assert.equal(e.message, `Too many arguments for 'find' service method`);
     }
   });
 
@@ -46,13 +46,13 @@ describe('Argument normalization tests', () => {
     try {
       getArguments('get', [callback]);
     } catch(e) {
-      assert.equal(e.message, 'First parameter for \'get\' can not be a function');
+      assert.equal(e.message, `First parameter for 'get' can not be a function`);
     }
 
     try {
       getArguments('get', normal.concat(['too many']));
     } catch(e) {
-      assert.equal(e.message, 'Too many arguments for \'get\' service method');
+      assert.equal(e.message, `Too many arguments for 'get' service method`);
     }
   });
 
@@ -74,13 +74,13 @@ describe('Argument normalization tests', () => {
     try {
       args = getArguments('remove', [callback]);
     } catch(e) {
-      assert.equal(e.message, 'First parameter for \'remove\' can not be a function');
+      assert.equal(e.message, `First parameter for 'remove' can not be a function`);
     }
 
     try {
       getArguments('remove', normal.concat(['too many']));
     } catch(e) {
-      assert.equal(e.message, 'Too many arguments for \'remove\' service method');
+      assert.equal(e.message, `Too many arguments for 'remove' service method`);
     }
   });
 
@@ -103,13 +103,13 @@ describe('Argument normalization tests', () => {
     try {
       getArguments('create', [callback]);
     } catch(e) {
-      assert.equal(e.message, 'First parameter for \'create\' must be an object');
+      assert.equal(e.message, `First parameter for 'create' must be an object`);
     }
 
     try {
       getArguments('create', normal.concat(['too many']));
     } catch(e) {
-      assert.equal(e.message, 'Too many arguments for \'create\' service method');
+      assert.equal(e.message, `Too many arguments for 'create' service method`);
     }
   });
 
@@ -132,19 +132,19 @@ describe('Argument normalization tests', () => {
     try {
       getArguments('update', [callback]);
     } catch(e) {
-      assert.equal(e.message, 'First parameter for \'update\' can not be a function');
+      assert.equal(e.message, `First parameter for 'update' can not be a function`);
     }
 
     try {
       getArguments('update', [5]);
     } catch(e) {
-      assert.equal(e.message, 'No data provided for \'update\'');
+      assert.equal(e.message, `No data provided for 'update'`);
     }
 
     try {
       getArguments('update', normal.concat(['too many']));
     } catch(e) {
-      assert.equal(e.message, 'Too many arguments for \'update\' service method');
+      assert.equal(e.message, `Too many arguments for 'update' service method`);
     }
   });
 
@@ -167,19 +167,178 @@ describe('Argument normalization tests', () => {
     try {
       getArguments('patch', [callback]);
     } catch(e) {
-      assert.equal(e.message, 'First parameter for \'patch\' can not be a function');
+      assert.equal(e.message, `First parameter for 'patch' can not be a function`);
     }
 
     try {
       getArguments('patch', [5]);
     } catch(e) {
-      assert.equal(e.message, 'No data provided for \'patch\'');
+      assert.equal(e.message, `No data provided for 'patch'`);
     }
 
     try {
       getArguments('patch', normal.concat(['too many']));
     } catch(e) {
-      assert.equal(e.message, 'Too many arguments for \'patch\' service method');
+      assert.equal(e.message, `Too many arguments for 'patch' service method`);
+    }
+  });
+
+  it('findInCollection', () => {
+    let collection = 'users';
+    let normal = [1, collection, params, callback];
+    let args = getArguments('findInCollection', normal);
+
+    assert.deepEqual(args, normal);
+
+    args = getArguments('findInCollection', [2, collection, callback]);
+    assert.deepEqual(args, [2, collection, {}, callback]);
+
+    args = getArguments('findInCollection', [3, collection, params]);
+    assert.deepEqual(args, [3, collection, params, _.noop]);
+
+    args = getArguments('findInCollection', [4, collection]);
+    assert.deepEqual(args, [4, collection, {}, _.noop]);
+
+    try {
+      getArguments('findInCollection', [callback]);
+    } catch(e) {
+      assert.equal(e.message, `First parameter for 'findInCollection' can not be a function`);
+    }
+
+    try {
+      getArguments('findInCollection', [5]);
+    } catch(e) {
+      assert.equal(e.message, `The collection for 'findInCollection' should be a string`);
+    }
+
+    try {
+      getArguments('findInCollection', normal.concat(['too many']));
+    } catch(e) {
+      assert.equal(e.message, `Too many arguments for 'findInCollection' service method`);
+    }
+  });
+
+  it('addToCollection', () => {
+    let collection = 'users';
+    let data = { test: 'Data' };
+    let normal = [1, collection, data, params, callback];
+    let args = getArguments('addToCollection', normal);
+
+    assert.deepEqual(args, normal);
+
+    args = getArguments('addToCollection', [2, collection, data, callback]);
+    assert.deepEqual(args, [2, collection, data, {}, callback]);
+
+    args = getArguments('addToCollection', [3, collection, data, params]);
+    assert.deepEqual(args, [3, collection, data, params, _.noop]);
+
+    args = getArguments('addToCollection', [4, collection, data]);
+    assert.deepEqual(args, [4, collection, data, {}, _.noop]);
+
+    try {
+      getArguments('addToCollection', [callback]);
+    } catch(e) {
+      assert.equal(e.message, `First parameter for 'addToCollection' can not be a function`);
+    }
+
+    try {
+      getArguments('addToCollection', [5]);
+    } catch(e) {
+      assert.equal(e.message, `The collection for 'addToCollection' should be a string`);
+    }
+
+    try {
+      getArguments('addToCollection', [6, collection]);
+    } catch(e) {
+      assert.equal(e.message, `No data provided for 'addToCollection'`);
+    }
+
+    try {
+      getArguments('addToCollection', normal.concat(['too many']));
+    } catch(e) {
+      assert.equal(e.message, `Too many arguments for 'addToCollection' service method`);
+    }
+  });
+
+  it('getInCollection', () => {
+    let collection = 'users';
+    let normal = [1, collection, 1, params, callback];
+    let args = getArguments('getInCollection', normal);
+
+    assert.deepEqual(args, normal);
+
+    args = getArguments('getInCollection', [2, collection, 2, callback]);
+    assert.deepEqual(args, [2, collection, 2, {}, callback]);
+
+    args = getArguments('getInCollection', [3, collection, 3, params]);
+    assert.deepEqual(args, [3, collection, 3, params, _.noop]);
+
+    args = getArguments('getInCollection', [4, collection, 4]);
+    assert.deepEqual(args, [4, collection, 4, {}, _.noop]);
+
+    try {
+      getArguments('getInCollection', [callback]);
+    } catch(e) {
+      assert.equal(e.message, `First parameter for 'getInCollection' can not be a function`);
+    }
+
+    try {
+      getArguments('getInCollection', [5]);
+    } catch(e) {
+      assert.equal(e.message, `The collection for 'getInCollection' should be a string`);
+    }
+
+    try {
+      getArguments('getInCollection', [6, 'users', callback]);
+    } catch(e) {
+      assert.equal(e.message, `Third parameter for 'getInCollection' can not be a function`);
+    }
+
+    try {
+      getArguments('getInCollection', normal.concat(['too many']));
+    } catch(e) {
+      assert.equal(e.message, `Too many arguments for 'getInCollection' service method`);
+    }
+  });
+
+  it('removeFromCollection', () => {
+    let collection = 'users';
+    let normal = [1, collection, 1, params, callback];
+    let args = getArguments('removeFromCollection', normal);
+
+    assert.deepEqual(args, normal);
+
+    args = getArguments('removeFromCollection', [2, collection, 2, callback]);
+    assert.deepEqual(args, [2, collection, 2, {}, callback]);
+
+    args = getArguments('removeFromCollection', [3, collection, 3, params]);
+    assert.deepEqual(args, [3, collection, 3, params, _.noop]);
+
+    args = getArguments('removeFromCollection', [4, collection, 4]);
+    assert.deepEqual(args, [4, collection, 4, {}, _.noop]);
+
+    try {
+      getArguments('removeFromCollection', [callback]);
+    } catch(e) {
+      assert.equal(e.message, `First parameter for 'removeFromCollection' can not be a function`);
+    }
+
+    try {
+      getArguments('removeFromCollection', [5]);
+    } catch(e) {
+      assert.equal(e.message, `The collection for 'removeFromCollection' should be a string`);
+    }
+
+    try {
+      getArguments('removeFromCollection', [6, 'users', callback]);
+    } catch(e) {
+      assert.equal(e.message, `Third parameter for 'removeFromCollection' can not be a function`);
+    }
+
+    try {
+      getArguments('removeFromCollection', normal.concat(['too many']));
+    } catch(e) {
+      assert.equal(e.message, `Too many arguments for 'removeFromCollection' service method`);
     }
   });
 });

@@ -34,14 +34,13 @@ export function setupEventHandlers(info, service, path) {
         service[ev] : defaultDispatcher;
       let eventName = `${path} ${ev}`;
 
-      info.clients().forEach(function (socket) {
-        dispatcher(data, info.params(socket), function (error, dispatchData) {
-          if (error) {
-            socket[info.method]('error', error);
-          } else if (dispatchData) { // Only dispatch if we have data
-            socket[info.method](eventName, dispatchData);
-          }
-        });
+      dispatcher(data, {}, function (error, dispatchData) {
+        if (error) {
+          socket[info.method]('error', error);
+        } else if (dispatchData) {
+          // Only dispatch if we have data
+          info.connection().emit(eventName, dispatchData);
+        }
       });
     });
   });
