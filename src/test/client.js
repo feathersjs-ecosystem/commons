@@ -19,7 +19,7 @@ export default function(service) {
         nested: { a: { b: 'object' } }
       };
 
-      service.get(0, { query }).then(todo => assert.deepEqual(todo, {
+      service.get(0, query).then(todo => assert.deepEqual(todo, {
         id: 0,
         text: 'some todo',
         complete: false,
@@ -74,8 +74,7 @@ export default function(service) {
     });
 
     it('.get with error', function(done) {
-      let query = { error: true };
-      service.get(0, { query }).then(done, error => {
+      service.get(0, { error: true }).then(done, error => {
         assert.ok(error && error.message);
         done();
       });
