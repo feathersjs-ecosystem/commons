@@ -13,19 +13,19 @@ export function each (obj, callback) {
 export const _ = {
   each,
 
-  some(value, callback) {
+  some (value, callback) {
     return Object.keys(value)
       .map(key => [ value[key], key ])
       .some(current => callback(...current));
   },
 
-  every(value, callback) {
+  every (value, callback) {
     return Object.keys(value)
       .map(key => [ value[key], key ])
       .every(current => callback(...current));
   },
 
-  keys(obj) {
+  keys (obj) {
     return Object.keys(obj);
   },
 
@@ -33,7 +33,7 @@ export const _ = {
     return _.keys(obj).map(key => obj[key]);
   },
 
-  isMatch(obj, item) {
+  isMatch (obj, item) {
     return _.keys(item).every(key => obj[key] === item[key]);
   },
 
@@ -45,7 +45,7 @@ export const _ = {
     return Object.assign(...args);
   },
 
-  omit(obj, ...keys) {
+  omit (obj, ...keys) {
     const result = _.extend({}, obj);
     keys.forEach(key => delete result[key]);
     return result;
@@ -53,7 +53,9 @@ export const _ = {
 
   pick (source, ...keys) {
     const result = {};
-    keys.forEach(key => result[key] = source[key]);
+    keys.forEach(key => {
+      result[key] = source[key];
+    });
     return result;
   }
 };
@@ -88,19 +90,19 @@ export const specialFilters = {
   }
 };
 
-export function select(... fields) {
-  return result => _.pick(result, ... fields);
+export function select (...fields) {
+  return result => _.pick(result, ...fields);
 }
 
-export function selectMany(... fields) {
-  const selector = select(... fields);
+export function selectMany (...fields) {
+  const selector = select(...fields);
 
-  return function(result) {
-    if(Array.isArray(result)) {
+  return function (result) {
+    if (Array.isArray(result)) {
       return result.map(selector);
     }
 
-    if(result.data) {
+    if (result.data) {
       result.data = result.data.map(selector);
     }
 
