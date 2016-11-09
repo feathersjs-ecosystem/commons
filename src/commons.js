@@ -1,5 +1,7 @@
 import getArguments from './arguments';
-import { stripSlashes, each, matcher, sorter, _ } from './utils';
+import {
+  stripSlashes, each, matcher, sorter, _, select, selectMany
+} from './utils';
 import hooks from './hooks';
 
 export default {
@@ -9,5 +11,7 @@ export default {
   each,
   hooks,
   matcher,
-  sorter
+  sorter,
+  select,
+  selectMany
 };
