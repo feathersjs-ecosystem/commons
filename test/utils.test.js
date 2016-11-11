@@ -100,7 +100,9 @@ describe('feathers-commons utils', () => {
 
   describe('select', () => {
     it('select', () => {
-      const selector = select(['name', 'age']);
+      const selector = select({
+        query: { $select: ['name', 'age'] }
+      });
 
       return Promise.resolve({
         name: 'David',
@@ -114,8 +116,8 @@ describe('feathers-commons utils', () => {
       }));
     });
 
-    it('select with no arguments', () => {
-      const selector = select();
+    it('select with no query', () => {
+      const selector = select({});
       const data = {
         name: 'David'
       };

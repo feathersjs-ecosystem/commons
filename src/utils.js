@@ -90,9 +90,11 @@ export const specialFilters = {
   }
 };
 
-export function select (fields) {
+export function select (params) {
+  const fields = params && params.query && params.query.$select;
+
   return result => {
-    if (!(fields && Array.isArray(fields))) {
+    if (!fields || !Array.isArray(fields)) {
       return result;
     }
 
