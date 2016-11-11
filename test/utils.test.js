@@ -126,6 +126,24 @@ describe('feathers-commons utils', () => {
       .then(selector)
       .then(result => assert.deepEqual(result, data));
     });
+
+    it('select with other fields', () => {
+      const selector = select({
+        query: { $select: [ 'name' ] }
+      }, 'id');
+      const data = {
+        id: 'me',
+        name: 'David',
+        age: 10
+      };
+
+      return Promise.resolve(data)
+      .then(selector)
+      .then(result => assert.deepEqual(result, {
+        id: 'me',
+        name: 'David'
+      }));
+    });
   });
 
   describe('specialFilters', () => {
