@@ -90,23 +90,13 @@ export const specialFilters = {
   }
 };
 
-export function select (...fields) {
-  return result => _.pick(result, ...fields);
-}
-
-export function selectMany (...fields) {
-  const selector = select(...fields);
-
-  return function (result) {
-    if (Array.isArray(result)) {
-      return result.map(selector);
+export function select (fields) {
+  return result => {
+    if (!(fields && Array.isArray(fields))) {
+      return result;
     }
 
-    if (result.data) {
-      result.data = result.data.map(selector);
-    }
-
-    return result;
+    return _.pick(result, ...fields);
   };
 }
 
