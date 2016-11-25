@@ -36,7 +36,7 @@ describe('hook utilities', () => {
         { some: 'thing' }, noop
     ], { test: 'me', other: true });
 
-    assert.deepEqual(hookObject, {
+    expect(hookObject).to.deep.equal({
       params: { some: 'thing' },
       method: 'find',
       type: 'test',
