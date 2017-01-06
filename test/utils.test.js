@@ -371,23 +371,25 @@ describe('feathers-commons utils', () => {
       expect(matches({ name: 'Marshall', counter: 0 })).to.be.ok;
     });
 
-    it('match an array element', () => {
+    it('matches a string in an array', () => {
       const matchesString = matcher({
-        name: { name: 'Nico' }
+        name: 'Nico'
       });
 
       expect(matchesString({ name: ['Nico', 'Eric'] })).to.be.ok;
       expect(!matchesString({ name: ['Marshall'] })).to.be.ok;
+    });
 
+    it('matches an array of strings (with a single string) in an array', () => {
       const matchesArray = matcher({
-        name: { name: ['Nico'] }
+        name: ['Nico']
       });
 
       expect(matchesArray({ name: ['Nico', 'Eric'] })).to.be.ok;
       expect(!matchesArray({ name: ['Marshall'] })).to.be.ok;
 
       const matchesArrayMultiple = matcher({
-        name: { name: ['Nico', 'Eric'] }
+        name: ['Nico', 'Eric']
       });
 
       expect(matchesArrayMultiple({ name: ['Nico', 'Eric'] })).to.be.ok;
@@ -396,7 +398,7 @@ describe('feathers-commons utils', () => {
       expect(!matchesArrayMultiple({ name: ['Marshall'] })).to.be.ok;
     });
 
-    it('with null values', () => {
+    it('matches an array of multiple strings in an array', () => {
       const matches = matcher({
         counter: null,
         name: { $in: ['Eric', 'Marshall'] }
