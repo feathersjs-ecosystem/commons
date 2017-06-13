@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import {
-  getArguments,
   stripSlashes,
   hooks,
   _,
@@ -19,30 +18,29 @@ import {
   extend,
   omit,
   pick,
-  merge
+  merge,
+  validateArguments
 } from '../src/commons';
-
-if (!global._babelPolyfill) { require('babel-polyfill'); }
 
 describe('build', () => {
   it('is commonjs compatible', () => {
     let commons = require('../lib/commons');
     expect(typeof commons).to.equal('object');
-    expect(typeof commons.getArguments).to.equal('function');
     expect(typeof commons.stripSlashes).to.equal('function');
     expect(typeof commons.matcher).to.equal('function');
     expect(typeof commons.sorter).to.equal('function');
     expect(typeof commons.select).to.equal('function');
+    expect(typeof commons.validateArguments).to.equal('function');
     expect(typeof commons.hooks).to.equal('object');
     expect(typeof commons._).to.equal('object');
   });
 
   it('is es6 compatible', () => {
-    expect(typeof getArguments).to.equal('function');
     expect(typeof stripSlashes).to.equal('function');
     expect(typeof matcher).to.equal('function');
     expect(typeof sorter).to.equal('function');
     expect(typeof select).to.equal('function');
+    expect(typeof validateArguments).to.equal('function');
     expect(typeof hooks).to.equal('object');
     expect(typeof _).to.equal('object');
   });
