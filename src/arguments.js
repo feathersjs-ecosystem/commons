@@ -1,88 +1,56 @@
-export const noop = () => {};
-const getCallback = args => {
-  var last = args[args.length - 1];
-  return typeof last === 'function' ? last : noop;
-};
-const getParams = (args, position) => typeof args[position] === 'object' ? args[position] : {};
-
-const updateOrPatch = name => {
-  return function (args) {
-    let id = args[0];
-    let data = args[1];
-    let callback = getCallback(args);
-    let params = getParams(args, 2);
-
-    if (typeof id === 'function') {
-      throw new Error(`First parameter for '${name}' can not be a function`);
-    }
-
-    if (typeof data !== 'object') {
-      throw new Error(`No data provided for '${name}'`);
-    }
-
-    if (args.length > 4) {
-      throw new Error(`Too many arguments for '${name}' service method`);
-    }
-
-    return [ id, data, params, callback ];
-  };
+const paramCounts = {
+  find: 1,
+  get: 2,
+  create: 2,
+  update: 3,
+  patch: 3,
+  remove: 2
 };
 
-const getOrRemove = name => {
-  return function (args) {
-    let id = args[0];
-    let params = getParams(args, 1);
-    let callback = getCallback(args);
+function isObjectOrArray (value) {
+  return typeof value === 'object' && value !== null;
+}
 
-    if (args.length > 3) {
-      throw new Error(`Too many arguments for '${name}' service method`);
-    }
+export function validateArguments (method, args) {
+  // Check if the last argument is a callback which are no longer supported
+  if (typeof args[args.length - 1] === 'function') {
+    throw new Error('Callbacks are no longer supported. Use Promises or async/await instead.');
+  }
 
-    if (typeof id === 'function') {
-      throw new Error(`First parameter for '${name}' can not be a function`);
-    }
+  const methodParamCount = paramCounts[method];
 
-    return [ id, params, callback ];
-  };
-};
+  // Check the number of arguments and throw an error if too many are provided
+  if (methodParamCount && args.length > methodParamCount) {
+    throw new Error(`Too many arguments for '${method}' method`);
+  }
 
-export const converters = {
-  find (args) {
-    let callback = getCallback(args);
-    let params = getParams(args, 0);
+  // `params` is always the last argument
+  const params = args[methodParamCount - 1];
 
-    if (args.length > 2) {
-      throw new Error(`Too many arguments for 'find' service method`);
-    }
+  // Check if `params` is an object (can be undefined though)
+  if (params !== undefined && !isObjectOrArray(params)) {
+    throw new Error(`Params for '${method}' method must be an object`);
+  }
 
-    return [ params, callback ];
-  },
+  // Validate other arguments for each method
+  switch (method) {
+    case 'create':
+      if (!isObjectOrArray(args[0])) {
+        throw new Error(`A data object must be provided to the 'create' method`);
+      }
+      break;
+    case 'get':
+    case 'remove':
+    case 'update':
+    case 'patch':
+      if (args[0] === undefined) {
+        throw new Error(`An id must be provided to the '${method}' method`);
+      }
 
-  create (args) {
-    let data = args[0];
-    let params = getParams(args, 1);
-    let callback = getCallback(args);
+      if ((method === 'update' || method === 'patch') && !isObjectOrArray(args[1])) {
+        throw new Error(`A data object must be provided to the '${method}' method`);
+      }
+  }
 
-    if (typeof data !== 'object') {
-      throw new Error(`First parameter for 'create' must be an object`);
-    }
-
-    if (args.length > 3) {
-      throw new Error(`Too many arguments for 'create' service method`);
-    }
-
-    return [ data, params, callback ];
-  },
-
-  update: updateOrPatch('update'),
-
-  patch: updateOrPatch('patch'),
-
-  get: getOrRemove('get'),
-
-  remove: getOrRemove('remove')
-};
-
-export default function getArguments (method, args) {
-  return converters[method](args);
+  return true;
 }

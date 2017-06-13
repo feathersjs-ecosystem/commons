@@ -1,47 +1,5 @@
-import getArguments from './arguments';
-import {
-  _,
-  stripSlashes,
-  matcher,
-  sorter,
-  select,
-  makeUrl,
-  // lodash functions
-  each,
-  some,
-  every,
-  keys,
-  values,
-  isMatch,
-  isEmpty,
-  isObject,
-  extend,
-  omit,
-  pick,
-  merge
-} from './utils';
-import hooks from './hooks';
+import * as utils from './utils';
+import * as hooks from './hooks';
+import * as args from './arguments';
 
-export default {
-  _,
-  getArguments,
-  stripSlashes,
-  hooks,
-  matcher,
-  sorter,
-  select,
-  makeUrl,
-  // lodash functions
-  each,
-  some,
-  every,
-  keys,
-  values,
-  isMatch,
-  isEmpty,
-  isObject,
-  extend,
-  omit,
-  pick,
-  merge
-};
+export default Object.assign({}, utils, args, { hooks });

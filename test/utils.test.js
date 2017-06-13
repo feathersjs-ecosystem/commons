@@ -11,8 +11,6 @@ import {
   makeUrl
 } from '../src/utils';
 
-if (!global._babelPolyfill) { require('babel-polyfill'); }
-
 describe('feathers-commons utils', () => {
   it('stripSlashes', () => {
     expect(stripSlashes('some/thing')).to.equal('some/thing');
