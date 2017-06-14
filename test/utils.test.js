@@ -8,7 +8,8 @@ import {
   matcher,
   stripSlashes,
   select,
-  makeUrl
+  makeUrl,
+  isPromise
 } from '../src/utils';
 
 describe('feathers-commons utils', () => {
@@ -19,6 +20,14 @@ describe('feathers-commons utils', () => {
     expect(stripSlashes('/some/thing/')).to.equal('some/thing');
     expect(stripSlashes('//some/thing/')).to.equal('some/thing');
     expect(stripSlashes('//some//thing////')).to.equal('some//thing');
+  });
+
+  it('isPromise', () => {
+    expect(isPromise(Promise.resolve())).to.equal(true);
+    expect(isPromise({
+      then () {}
+    })).to.equal(true);
+    expect(isPromise(null)).to.equal(false);
   });
 
   describe('_', () => {
