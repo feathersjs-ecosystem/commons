@@ -200,3 +200,8 @@ export function makeUrl (path, app = {}) {
 
   return `${protocol}://${host}${port}/${stripSlashes(path)}`;
 }
+
+export function isPromise (result) {
+  return isObject(result) &&
+    typeof result.then === 'function';
+}

@@ -40,19 +40,22 @@ export const converters = {
 
 // Creates a new hook object from given method, type and arguments
 // `app` can be either the app or an object to extend this hook object with
-export function hookObject (method, type, args, app = {}) {
+export function createHookObject (method, args, data = {}) {
   const hook = converters[method](args);
 
-  hook.method = method;
-  hook.type = type;
+  return Object.assign(hook, data, {
+    method,
+    get path () {
+      const { app, service } = data;
 
-  if (typeof app === 'function') {
-    hook.app = app;
-  } else {
-    Object.assign(hook, app);
-  }
+      if (!service || !app || !app.services) {
+        return null;
+      }
 
-  return hook;
+      return Object.keys(app.services)
+        .find(path => app.services[path] === service);
+    }
+  });
 }
 
 // A fallback for creating arguments
@@ -123,7 +126,11 @@ export function getHooks (app, service, type, method, appLast = false) {
   const serviceHooks = service.__hooks[type][method] || [];
 
   if (appLast) {
-    return serviceHooks.concat(appHooks);
+    // `finally` app hooks always run when app hooks are at the end
+    // this normally happens for `after` and `error` hooks
+    const fin = (app.__hooks.finally && app.__hooks.finally[method]) || [];
+    // Run hooks in the order of service -> app -> finally
+    return serviceHooks.concat(appHooks).concat(fin);
   }
 
   return appHooks.concat(serviceHooks);
