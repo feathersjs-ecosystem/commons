@@ -126,11 +126,8 @@ export function getHooks (app, service, type, method, appLast = false) {
   const serviceHooks = service.__hooks[type][method] || [];
 
   if (appLast) {
-    // `finally` app hooks always run when app hooks are at the end
-    // this normally happens for `after` and `error` hooks
-    const fin = (app.__hooks.finally && app.__hooks.finally[method]) || [];
     // Run hooks in the order of service -> app -> finally
-    return serviceHooks.concat(appHooks).concat(fin);
+    return serviceHooks.concat(appHooks);
   }
 
   return appHooks.concat(serviceHooks);
@@ -212,10 +209,6 @@ export function enableHooks (obj, methods, types) {
         });
 
         methods.forEach(method => {
-          if (!(hooks[method] || hooks.all)) {
-            return;
-          }
-
           const myHooks = this.__hooks[type][method] ||
             (this.__hooks[type][method] = []);
 
