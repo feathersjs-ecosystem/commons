@@ -1,6 +1,6 @@
 {
   "name": "feathers-commons",
-  "version": "0.8.7",
+  "version": "1.0.0-pre.0",
   "description": "Shared Feathers utility functions",
   "homepage": "https://github.com/feathersjs/feathers-commons",
   "keywords": [
@@ -30,6 +30,7 @@
     "release:patch": "npm version patch && npm publish",
     "release:minor": "npm version minor && npm publish",
     "release:major": "npm version major && npm publish",
+    "release:pre": "npm version prerelease && npm publish --tag pre",
     "changelog": "github_changelog_generator && git add CHANGELOG.md && git commit -am \"Updating changelog\"",
     "compile": "rimraf lib/ && node_modules/.bin/babel -d lib/ src/",
     "watch": "babel --watch -d lib/ src/",
