@@ -1,6 +1,5 @@
-import { expect } from 'chai';
-
-import * as utils from '../src/hooks';
+const { expect } = require('chai');
+const utils = require('../lib/hooks');
 
 describe('hook utilities', () => {
   describe('.makeArguments', () => {
