@@ -1,6 +1,10 @@
-import { expect } from 'chai';
+const {
+  expect
+} = require('chai');
 
-import { validateArguments } from '../src/arguments';
+const {
+  validateArguments
+} = require('../lib/arguments');
 
 describe('.validateArguments', () => {
   it('throws an error for callbacks', () => {

@@ -1,7 +1,12 @@
 /* eslint-disable no-unused-expressions */
-import feathers from 'feathers';
-import { expect } from 'chai';
-import {
+
+const feathers = require('feathers');
+
+const {
+  expect
+} = require('chai');
+
+const {
   _,
   specialFilters,
   sorter,
@@ -10,7 +15,7 @@ import {
   select,
   makeUrl,
   isPromise
-} from '../src/utils';
+} = require('../lib/utils');
 
 describe('feathers-commons utils', () => {
   it('stripSlashes', () => {
