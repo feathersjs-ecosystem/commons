@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.0.0-pre.2](https://github.com/feathersjs/feathers-commons/tree/v1.0.0-pre.2) (2017-07-11)
+[Full Changelog](https://github.com/feathersjs/feathers-commons/compare/v1.0.0-pre.1...v1.0.0-pre.2)
+
+**Merged pull requests:**
+
+- Update to new plugin infrastructure [\#53](https://github.com/feathersjs/feathers-commons/pull/53) ([daffl](https://github.com/daffl))
+
 ## [v1.0.0-pre.1](https://github.com/feathersjs/feathers-commons/tree/v1.0.0-pre.1) (2017-06-28)
 [Full Changelog](https://github.com/feathersjs/feathers-commons/compare/v0.8.7...v1.0.0-pre.1)
 
