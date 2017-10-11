@@ -151,8 +151,16 @@ export function matcher (originalQuery) {
       return true;
     }
 
+
+
     return _.every(query, (value, key) => {
-      if (value !== null && typeof value === 'object') {
+      if (Array.isArray(item[key])) {
+        if (!Array.isArray(value)) value = [value];
+        
+        return !(value.map((v) => {
+          return item[key].includes(v);
+        }).includes(false));
+      } else if (value !== null && typeof value === 'object') {
         return _.every(value, (target, filterType) => {
           if (specialFilters[filterType]) {
             const filter = specialFilters[filterType](key, target);
