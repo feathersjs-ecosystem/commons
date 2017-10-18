@@ -1,5 +1,13 @@
 # Change Log
 
+## [v1.0.0-pre.3](https://github.com/feathersjs/feathers-commons/tree/v1.0.0-pre.3) (2017-10-18)
+[Full Changelog](https://github.com/feathersjs/feathers-commons/compare/v1.0.0-pre.2...v1.0.0-pre.3)
+
+**Merged pull requests:**
+
+- Update the client test suite [\#55](https://github.com/feathersjs/feathers-commons/pull/55) ([daffl](https://github.com/daffl))
+- Update mocha to the latest version 🚀 [\#54](https://github.com/feathersjs/feathers-commons/pull/54) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
 ## [v1.0.0-pre.2](https://github.com/feathersjs/feathers-commons/tree/v1.0.0-pre.2) (2017-07-11)
 [Full Changelog](https://github.com/feathersjs/feathers-commons/compare/v1.0.0-pre.1...v1.0.0-pre.2)
 
