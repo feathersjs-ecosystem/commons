@@ -17,7 +17,7 @@ const {
   isPromise
 } = require('../lib/utils');
 
-describe('feathers-commons utils', () => {
+describe('@featherjs/commons utils', () => {
   it('stripSlashes', () => {
     expect(stripSlashes('some/thing')).to.equal('some/thing');
     expect(stripSlashes('/some/thing')).to.equal('some/thing');
