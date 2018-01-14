@@ -326,7 +326,7 @@ describe('hook utilities', () => {
       });
     });
 
-    it('skip next hooks', () => {
+    it('skip further hooks', () => {
       const dummyHook = {
         type: 'dummy',
         method: 'something'
@@ -346,8 +346,9 @@ describe('hook utilities', () => {
         },
 
         hook => {
-          hook.__skipNextHooks = true;
           hook.chain.push('third');
+
+          return utils.skip;
         },
 
         function (hook) {
@@ -359,7 +360,6 @@ describe('hook utilities', () => {
 
       return promise.then(result => {
         expect(result).to.deep.equal({
-          __skipNextHooks: true,
           type: 'dummy',
           method: 'something',
           chain: [ 'first', 'second', 'third' ]
