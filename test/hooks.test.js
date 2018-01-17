@@ -348,7 +348,7 @@ describe('hook utilities', () => {
         hook => {
           hook.chain.push('third');
 
-          return utils.skip;
+          return utils.SKIP;
         },
 
         function (hook) {
