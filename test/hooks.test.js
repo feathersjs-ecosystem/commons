@@ -126,11 +126,7 @@ describe('hook utilities', () => {
   });
 
   describe('.createHookObject', () => {
-    const service = {
-      converters: {
-        custom: ([ id, data, params = {} ]) => ({ id, data, params })
-      }
-    };
+    const service = {};
     const app = {
       services: {
         testing: service
@@ -292,7 +288,11 @@ describe('hook utilities', () => {
     it('for custom method', () => {
       const hookObject = utils.createHookObject('custom', [
         2, { my: 'data' }, { some: 'thing' }
-      ], hookData);
+      ], {
+        app,
+        service,
+        arguments: ['id', 'data', 'params']
+      });
 
       expect(hookObject).to.deep.equal({
         id: 2,
@@ -301,7 +301,8 @@ describe('hook utilities', () => {
         method: 'custom',
         app,
         service,
-        path: 'testing'
+        path: 'testing',
+        arguments: ['id', 'data', 'params']
       });
     });
   });
