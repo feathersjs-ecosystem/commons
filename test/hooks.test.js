@@ -290,19 +290,14 @@ describe('hook utilities', () => {
         2, { my: 'data' }, { some: 'thing' }
       ], {
         app,
-        service,
-        arguments: ['id', 'data', 'params']
+        service
       });
 
       expect(hookObject).to.deep.equal({
-        id: 2,
-        data: { my: 'data' },
-        params: { some: 'thing' },
         method: 'custom',
         app,
         service,
-        path: 'testing',
-        arguments: ['id', 'data', 'params']
+        path: 'testing'
       });
     });
   });
