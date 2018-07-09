@@ -275,9 +275,88 @@ describe('@feathersjs/commons utils', () => {
 
       expect(array.sort(sort)).to.deep.equal([
         { name: 'Eric', counter: 0 },
-        { name: 'David', counter: 0 },
         { name: 'Eric', counter: 1 },
+        { name: 'David', counter: 0 },
         { name: 'David', counter: 1 }
+      ]);
+    });
+
+    it('two property sorter with three names', () => {
+      const array = [{
+        name: 'David',
+        counter: 0
+      }, {
+        name: 'Eric',
+        counter: 1
+      }, {
+        name: 'Andrew',
+        counter: 1
+      }, {
+        name: 'David',
+        counter: 1
+      }, {
+        name: 'Andrew',
+        counter: 0
+      }, {
+        name: 'Eric',
+        counter: 0
+      }];
+
+      const sort = sorter({
+        name: -1,
+        counter: 1
+      });
+
+      expect(array.sort(sort)).to.deep.equal([
+        { name: 'Eric', counter: 0 },
+        { name: 'Eric', counter: 1 },
+        { name: 'David', counter: 0 },
+        { name: 'David', counter: 1 },
+        { name: 'Andrew', counter: 0 },
+        { name: 'Andrew', counter: 1 }
+      ]);
+    });
+
+    it('three property sorter with three names', () => {
+      const array = [{
+        name: 'David',
+        counter: 0,
+        age: 2
+      }, {
+        name: 'Eric',
+        counter: 1,
+        age: 2
+      }, {
+        name: 'David',
+        counter: 1,
+        age: 1
+      }, {
+        name: 'Eric',
+        counter: 0,
+        age: 1
+      }, {
+        name: 'Andrew',
+        counter: 0,
+        age: 2
+      }, {
+        name: 'Andrew',
+        counter: 0,
+        age: 1
+      }];
+
+      const sort = sorter({
+        name: -1,
+        counter: 1,
+        age: -1
+      });
+
+      expect(array.sort(sort)).to.deep.equal([
+        { name: 'Eric', counter: 0, age: 1 },
+        { name: 'Eric', counter: 1, age: 2 },
+        { name: 'David', counter: 0, age: 2 },
+        { name: 'David', counter: 1, age: 1 },
+        { name: 'Andrew', counter: 0, age: 2 },
+        { name: 'Andrew', counter: 0, age: 1 }
       ]);
     });
   });
