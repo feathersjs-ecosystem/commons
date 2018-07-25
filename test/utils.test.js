@@ -253,6 +253,54 @@ describe('@feathersjs/commons utils', () => {
       }]);
     });
 
+    it('simple sorter with arrays', () => {
+      const array = [{
+        names: [ 'a', 'b' ]
+      }, {
+        names: [ 'c', 'd' ]
+      }];
+
+      const sort = sorter({
+        names: -1
+      });
+
+      expect(array.sort(sort)).to.deep.equal([{
+        names: [ 'c', 'd' ]
+      }, {
+        names: [ 'a', 'b' ]
+      }]);
+    });
+
+    it('simple sorter with objects', () => {
+      const array = [{
+        names: {
+          first: 'Dave',
+          last: 'L'
+        }
+      }, {
+        names: {
+          first: 'A',
+          last: 'B'
+        }
+      }];
+
+      const sort = sorter({
+        names: 1
+      });
+
+      expect(array.sort(sort)).to.deep.equal([{
+        names: {
+          first: 'A',
+          last: 'B'
+        }
+      }, {
+        names: {
+          first: 'Dave',
+          last: 'L'
+        }
+      }]);
+    });
+
     it('two property sorter', () => {
       const array = [{
         name: 'David',
@@ -281,7 +329,7 @@ describe('@feathersjs/commons utils', () => {
       ]);
     });
 
-    it('two property sorter with three names', () => {
+    it('two property sorter with names', () => {
       const array = [{
         name: 'David',
         counter: 0
@@ -317,7 +365,7 @@ describe('@feathersjs/commons utils', () => {
       ]);
     });
 
-    it('three property sorter with three names', () => {
+    it('three property sorter with names', () => {
       const array = [{
         name: 'David',
         counter: 0,
