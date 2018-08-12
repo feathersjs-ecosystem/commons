@@ -6,9 +6,14 @@ const expect = chai.expect;
 describe('.filterQuery', function () {
   describe('$sort', function () {
     it('returns $sort when present in query', function () {
-      const { filters, query } = filter({ $sort: { name: 1 } });
+      const originalQuery = { $sort: { name: 1 } };
+      const { filters, query } = filter(originalQuery);
+
       expect(filters.$sort.name).to.equal(1);
       expect(query).to.deep.equal({});
+      expect(originalQuery).to.deep.equal({
+        $sort: { name: 1 }
+      }, 'does not modify original query');
     });
 
     it('returns $sort when present in query as an object', function () {
@@ -141,7 +146,7 @@ describe('.filterQuery', function () {
       expect(filters).to.include({ $select: 1 }).and.to.not.have.any.keys('$known', '$unknown');
     });
 
-    it('returns default and known additional filters (array)', function () {
+    it.only('returns default and known additional filters (array)', function () {
       const { filters } = filter(this.query, { filters: [ '$known' ] });
       expect(filters).to.include({ $select: 1, $known: 1 }).and.to.not.have.key('$unknown');
     });
