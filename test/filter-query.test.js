@@ -146,7 +146,7 @@ describe('.filterQuery', function () {
       expect(filters).to.include({ $select: 1 }).and.to.not.have.any.keys('$known', '$unknown');
     });
 
-    it.only('returns default and known additional filters (array)', function () {
+    it('returns default and known additional filters (array)', function () {
       const { filters } = filter(this.query, { filters: [ '$known' ] });
       expect(filters).to.include({ $select: 1, $known: 1 }).and.to.not.have.key('$unknown');
     });
