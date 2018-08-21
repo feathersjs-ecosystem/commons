@@ -1,11 +1,8 @@
 # Feathers Commons
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/feathersjs/commons.svg)](https://greenkeeper.io/)
+> __Important:__ The code for this module has been moved into the main Feathers repository at [feathersjs/feathers](https://github.com/feathersjs/feathers) ([package direct link](https://github.com/feathersjs/feathers/tree/master/packages/commons)). Please open issues and pull requests there.
 
 [![Build Status](https://travis-ci.org/feathersjs/commons.png?branch=master)](https://travis-ci.org/feathersjs/commons)
-[![Test Coverage](https://codeclimate.com/github/feathersjs/commons/badges/coverage.svg)](https://codeclimate.com/github/feathersjs/commons/coverage)
-[![Dependency Status](https://img.shields.io/david/feathersjs/commons.svg?style=flat-square)](https://david-dm.org/feathersjs/commons)
-[![Download Status](https://img.shields.io/npm/dm/@feathersjs/commons.svg?style=flat-square)](https://www.npmjs.com/package/@feathersjs/commons)
 
 > Shared Feathers utility functions
 
